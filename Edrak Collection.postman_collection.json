@@ -1,0 +1,147 @@
+{
+	"info": {
+		"_postman_id": "f84957dd-d504-44ad-8da5-6d0f477ee790",
+		"name": "Edrak Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9934214"
+	},
+	"item": [
+		{
+			"name": "Get Customer orders",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Submit Order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"customerId\": 1,\r\n  \"products\": [\r\n    {\r\n      \"productId\": 1,\r\n      \"quantity\": 5\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{orders.Url}}/api/orders",
+					"host": [
+						"{{orders.Url}}"
+					],
+					"path": [
+						"api",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Orders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{orders.Url}}/api/orders?page=1&limit=10",
+					"host": [
+						"{{orders.Url}}"
+					],
+					"path": [
+						"api",
+						"orders"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get order details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{orders.Url}}/api/orders/1",
+					"host": [
+						"{{orders.Url}}"
+					],
+					"path": [
+						"api",
+						"orders",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change order status",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"orderStatus\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{orders.Url}}/api/orders/1/status",
+					"host": [
+						"{{orders.Url}}"
+					],
+					"path": [
+						"api",
+						"orders",
+						"1",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{orders.Url}}/api/orders/1/cancel",
+					"host": [
+						"{{orders.Url}}"
+					],
+					"path": [
+						"api",
+						"orders",
+						"1",
+						"cancel"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "orders.Url",
+			"value": "https://localhost:7208/"
+		}
+	]
+}
