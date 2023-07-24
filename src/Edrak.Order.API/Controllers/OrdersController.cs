@@ -77,7 +77,7 @@ namespace Edrak.Order.API.Controllers
         [HttpPatch("{orderId}/cancel")]
         public async Task<IActionResult> CancelOrder(int orderId)
         {
-            var isUpdated = await _orderCore.CancleOrder(orderId);
+            var isUpdated = await _orderCore.CancelOrder(orderId);
             if (isUpdated.IsSuccess)
             {
                 return StatusCode((int)HttpStatusCode.NoContent);

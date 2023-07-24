@@ -40,7 +40,7 @@ namespace Edrak.Order.Core.Services
                 };
             }
 
-            decimal productTotalAmout = 0;
+            decimal orderTotalAmout = 0;
             var productIds = dto.Products.Select(x => x.ProductId).ToList();
             var products = await _productCore.GetProductByIds(productIds);
             if(products is null)
@@ -79,11 +79,12 @@ namespace Edrak.Order.Core.Services
                         StatusCode = HttpStatusCode.BadRequest
                     };
                 }
-                productTotalAmout += (product.Quantity * productDto.Price);
+                orderTotalAmout += (product.Quantity * productDto.Price);
             }
 
             var order = _mapper.Map<Data.Entities.Order>(dto);
-            foreach(var item in order.OrderLineItems)
+            order.TotalAmount = orderTotalAmout;
+            foreach (var item in order.OrderLineItems)
             {
                 var metaData = _mapper.Map<OrderProductMetaDataDTO>(products.Data.FirstOrDefault(x => x.Id == item.ProductId));
                 item.ProductMetaData = JsonConvert.SerializeObject(metaData);
@@ -159,7 +160,7 @@ namespace Edrak.Order.Core.Services
             };
         }
 
-        public async Task<ResultModel<bool>> CancleOrder(int orderId)
+        public async Task<ResultModel<bool>> CancelOrder(int orderId)
         {
             var order = await _orderDal.GetOrderById(orderId);
             if (order is null)
@@ -226,6 +227,7 @@ namespace Edrak.Order.Core.Services
 
             return new ResultModel<PageModel<OrderDTO>>
             {
+                IsSuccess = true,
                 Data = results,
                 Message = "Succeeded",
                 StatusCode = HttpStatusCode.OK
